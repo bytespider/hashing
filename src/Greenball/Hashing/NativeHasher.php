@@ -50,7 +50,10 @@ class NativeHasher implements HasherInterface {
 	 */
 	public function make($value, array $options = array()) {
 		// Generate random salt to make every result different.
-		$random 	= strtolower(str_random($this->random));
+		$random = '';
+		if ($this->random > 0) {
+			$random = strtolower(str_random($this->random));
+		}
 
 		return hash($this->algorithm, $value.$this->salt.$random).$random;
 	}
